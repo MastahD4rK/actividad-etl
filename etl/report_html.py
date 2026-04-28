@@ -3,19 +3,22 @@ import os
 
 
 def generate_html_report(df, plots, output_file="reporte_aeronaves.html"):
+    # Genera un archivo HTML con el reporte de los datos y gráficos procesados.
+    # Calcular KPIs (Key Performance Indicators)
     total_registros = len(df)
     tipos_unicos = df["TIPO DE AERONAVE"].nunique()
     operadores_unicos = df["CATEGORIA_OPERADOR"].nunique()
     marca_top = df["MARCA_UNIFICADA"].value_counts().idxmax()
     fecha = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
+    # Calcular rutas relativas para las imágenes de los gráficos
     html_dir = os.path.dirname(os.path.abspath(output_file))
     img_tipo = os.path.relpath(os.path.abspath(plots[0]), start=html_dir).replace("\\", "/")
     img_categoria = os.path.relpath(os.path.abspath(plots[1]), start=html_dir).replace("\\", "/")
     img_marcas = os.path.relpath(os.path.abspath(plots[2]), start=html_dir).replace("\\", "/")
     img_cruce = os.path.relpath(os.path.abspath(plots[3]), start=html_dir).replace("\\", "/")
 
-    # Generar tabla simplificada con solo 10 filas
+    # Generar tabla simplificada con solo 10 filas para no saturar el HTML
     tabla_rows = ""
     for idx, row in df.head(10).iterrows():
         cols = "".join(f"<td>{val}</td>" for val in row)

@@ -4,8 +4,12 @@ import pandas as pd
 
 
 def generate_plots(df, output_dir="graficos"):
+    # Genera y guarda una serie de gráficos estadísticos a partir del DataFrame proporcionado.
+    
+    # Crear el directorio de salida si no existe
     os.makedirs(output_dir, exist_ok=True)
 
+    # 1. Gráfico de distribución por Tipo de Aeronave
     plt.figure(figsize=(10, 6))
     df["TIPO DE AERONAVE"].value_counts().plot(kind="bar", color="#1f77b4")
     plt.title("Distribucion por Tipo de Aeronave")
@@ -17,6 +21,7 @@ def generate_plots(df, output_dir="graficos"):
     plt.savefig(path_tipo, dpi=150)
     plt.close()
 
+    # 2. Gráfico de distribución por Categoría de Operador
     plt.figure(figsize=(9, 6))
     df["CATEGORIA_OPERADOR"].value_counts().plot(kind="bar", color="#2ca02c")
     plt.title("Distribucion por Categoria de Operador")
@@ -28,6 +33,7 @@ def generate_plots(df, output_dir="graficos"):
     plt.savefig(path_categoria, dpi=150)
     plt.close()
 
+    # 3. Gráfico de las 10 Marcas Unificadas más comunes (gráfico de barras horizontales)
     plt.figure(figsize=(10, 6))
     df["MARCA_UNIFICADA"].value_counts().head(10).sort_values().plot(kind="barh", color="#ff7f0e")
     plt.title("Top 10 Marcas Unificadas")
@@ -38,6 +44,7 @@ def generate_plots(df, output_dir="graficos"):
     plt.savefig(path_marcas, dpi=150)
     plt.close()
 
+    # 4. Gráfico de barras apiladas cruzando Tipo de Aeronave por Categoría de Operador
     crosstab = pd.crosstab(df["TIPO DE AERONAVE"], df["CATEGORIA_OPERADOR"])
     ax = crosstab.plot(kind="bar", stacked=True, figsize=(10, 6), colormap="tab20")
     ax.set_title("Tipo de Aeronave por Categoria de Operador")
@@ -50,4 +57,5 @@ def generate_plots(df, output_dir="graficos"):
     plt.savefig(path_cruce, dpi=150)
     plt.close()
 
+    # Devolver las rutas de las imágenes generadas para su posterior uso o validación
     return [path_tipo, path_categoria, path_marcas, path_cruce]
