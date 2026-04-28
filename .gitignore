@@ -21,12 +21,18 @@ Thumbs.db
 .vscode/
 
 # Salidas generadas del ETL
-outputs/csv/
-outputs/graficos/
-outputs/html/
-outputs/sql/
+outputs/
 
 # Logs y temporales
 *.log
 *.tmp
 *.bak
+
+# Secretos y variables de entorno
+.env
+
+# Configuraciones de IDE adicionales
+.idea/
+
+# Checkpoints de Jupyter (por si agregas notebooks después)
+.ipynb_checkpoints/
