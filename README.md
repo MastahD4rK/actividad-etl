@@ -270,5 +270,3 @@ El código está modularizado para facilitar:
 - El reporte HTML contiene links relativos que funcionan localmente
 
 ---
-
-**Última actualización**: Abril 2026
